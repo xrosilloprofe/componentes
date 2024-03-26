@@ -3,9 +3,18 @@ package es.ieslavereda.componentes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewCB;
     private TextView textViewS;
     private RadioGroup radioGroup;
+    private Button buttonAdd;
+    private EditText nombre;
+    private EditText apellidos;
+    private Spinner spinner;
+    private List<Usuario> usuarios;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         textViewCB = findViewById(R.id.textViewCB);
         radioGroup = findViewById(R.id.radioGroup);
         textViewS = findViewById(R.id.textViewSeleccion);
+        nombre = findViewById(R.id.nombreEditText);
+        apellidos = findViewById(R.id.apellidosEditText);
+        spinner = findViewById(R.id.spinner);
+        buttonAdd = findViewById(R.id.buttonAdd);
 
         checkBox.setOnClickListener(view -> {
             if(checkBox.isChecked())
@@ -42,5 +61,30 @@ public class MainActivity extends AppCompatActivity {
                 textViewS.setText("Imposible");
         });
 
+        usuarios = new ArrayList<>();
+        usuarios.add(new Usuario("Joaquín","Alonso"));
+        usuarios.add(new Usuario("Xavier","Rosillo"));
+        usuarios.add(new Usuario("Juan Carlos","Pareja"));
+
+        ArrayAdapter<Usuario> miAdaptador=
+                new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item,usuarios);
+        spinner.setAdapter(miAdaptador);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                textViewS.setText(usuarios.get(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
     }
+
+
+
 }
