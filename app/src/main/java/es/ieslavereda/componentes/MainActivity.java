@@ -82,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonAdd.setOnClickListener(view -> {
+            usuarios.add(new Usuario(nombre.getText().toString(),
+                    apellidos.getText().toString()));
+            nombre.setText("");
+            apellidos.setText("");
+            miAdaptador.notifyDataSetChanged();
+        });
+
 
     }
 

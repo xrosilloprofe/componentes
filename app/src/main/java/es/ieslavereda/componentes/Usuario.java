@@ -11,7 +11,7 @@ public class Usuario {
 
     @Override
     public String toString(){
-        return nombre + ", " + apellidos;
+        return nombre + " " + apellidos;
     }
 
 }
