@@ -1,5 +1,6 @@
 package es.ieslavereda.componentes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,10 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 textViewS.setText("Imposible");
         });
 
-        usuarios = new ArrayList<>();
-        usuarios.add(new Usuario("Joaquín","Alonso"));
-        usuarios.add(new Usuario("Xavier","Rosillo"));
-        usuarios.add(new Usuario("Juan Carlos","Pareja"));
+        if(savedInstanceState==null){
+            usuarios = new ArrayList<>();
+            usuarios.add(new Usuario("Joaquín","Alonso"));
+            usuarios.add(new Usuario("Xavier","Rosillo"));
+            usuarios.add(new Usuario("Juan Carlos","Pareja"));
+        } else {
+            usuarios = (List<Usuario>) savedInstanceState.getSerializable("claveUsuario");
+        }
 
         ArrayAdapter<Usuario> miAdaptador=
                 new ArrayAdapter<>(this,
@@ -92,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("claveUsuario",(Serializable) usuarios);
+    }
+
 
 
 
