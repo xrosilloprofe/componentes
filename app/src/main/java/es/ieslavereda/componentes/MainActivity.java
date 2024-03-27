@@ -46,10 +46,16 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd = findViewById(R.id.buttonAdd);
 
         checkBox.setOnClickListener(view -> {
-            if(checkBox.isChecked())
+            if(checkBox.isChecked()){
                 textViewCB.setText("CheckBox activado");
+                radioGroup.setVisibility(View.VISIBLE);
+            }
             else
+            {
                 textViewCB.setText("CheckBox desactivado");
+//                radioGroup.setVisibility(View.INVISIBLE);
+                radioGroup.setVisibility(View.GONE);
+            }
         });
 
         radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             usuarios.add(new Usuario("Juan Carlos","Pareja"));
         } else {
             usuarios = (List<Usuario>) savedInstanceState.getSerializable("claveUsuario");
+            textViewCB.setText((String) savedInstanceState.getSerializable("clave"));
         }
 
         ArrayAdapter<Usuario> miAdaptador=
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("claveUsuario",(Serializable) usuarios);
+        outState.putSerializable("clave","HAS GIRADO EL MÓVIL");
     }
 
 
